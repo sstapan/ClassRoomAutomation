@@ -1,8 +1,11 @@
-//code not working yet
-//By: abhay
+/*   KeyPad Interfacing >>  status : Working
+*    By:abhay
+*    code will print pressed key @ 1,1 on display
+*    proteus simulation file : keypadinterfacing.pdsprj
+*/
 
 
-unsigned short kp, cnt, oldstate = 0;
+unsigned short kp;
 char txt[6];
 
 // Keypad module connections
@@ -20,22 +23,19 @@ sbit LCD_D7 at P2_5_bit;
 // End Lcd module connections
 
 void main() {
-  cnt = 0;                                 // Reset counter
+                                  // Reset counter
   Keypad_Init();                           // Initialize Keypad
   Lcd_Init();                              // Initialize Lcd
   Lcd_Cmd(_LCD_CLEAR);                     // Clear display
   Lcd_Cmd(_LCD_CURSOR_OFF);                // Cursor off
-
-  Lcd_Out(1, 1, "Key  :");                 // Write message text on Lcd
-  Lcd_Out(2, 1, "Times:");
-
   do {
     kp = 0;                                // Reset key code variable
-
+         delay_ms(10);
     // Wait for key to be pressed and released
     do
       // kp = Keypad_Key_Press();          // Store key code in kp variable
-      kp = Keypad_Key_Click();             // Store key code in kp variable
+      kp = Keypad_Key_Click(); 
+                 // Store key code in kp variable
     while (!kp);
    // Prepare value for output, transform key to it's ASCII value
     switch (kp) {
@@ -63,22 +63,6 @@ void main() {
 
     }
 
-    if (kp != oldstate) {                  // Pressed key differs from previous
-      cnt = 1;
-      oldstate = kp;
-      }
-    else {                                 // Pressed key is same as previous
-      cnt++;
-      }
-
-    Lcd_Chr(1, 10, kp);                    // Print key ASCII value on Lcd
-
-    if (cnt == 255) {                      // If counter varialble overflow
-      cnt = 0;
-      Lcd_Out(2, 10, "   ");
-      }
-
-    WordToStr(cnt, txt);                   // Transform counter value to string
-    Lcd_Out(2, 10, txt);                   // Display counter value on Lcd
+    Lcd_Chr(1, 1, kp);                       // Display counter value on Lcd
   } while (1);
 }
