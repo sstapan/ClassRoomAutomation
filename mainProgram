@@ -1,3 +1,10 @@
 /* this section will contain main program 
 * make changes to this section only when you tested your code
 * on your own system */
+
+
+
+void main()
+{
+  //body
+}
