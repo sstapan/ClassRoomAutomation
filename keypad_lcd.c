@@ -1,3 +1,7 @@
+//code not working yet
+//By: abhay
+
+
 unsigned short kp, cnt, oldstate = 0;
 char txt[6];
 
